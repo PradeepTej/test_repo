@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+<div class='row '>
+  <div class='col-md-12'>
+    <h2 class="text-center">{{object.name}}</h2>
+    <p class="text-center">Manager: {{ object.manager|capfirst }}
+    <p class="text-center">Location: {{object.location}}</p>
+    {% if user.is_authenticated %}
+      {% if user == object.manager %}
+        <a class="float-right btn btn-secondary ml-2" href="{% url 'player_new' %}">Add Player</a>
+      {% endif %}
+    {% endif %}
+    {% if user.is_authenticated %}
+  {% if user == object.manager %}
+    <p><a class="float-right btn btn-secondary ml-2" href="{% url 'club_edit' club.pk %}">Edit Club</a>
+  {% endif %}
+{% endif %}
+
+</p>
+<p> Back to <a class="" href="{% url 'club_list' %}">Clubs Page</a>.</p>
+
+    </p>
+    </div>
+  </div>
+  <div class='row'>
+    <div class='col-md-12 text-center'>
+    
+    {% if object.image %}
+        <img style="width:150px; height: 150px;" src='{{ object.image.url }}' class='img-fluid ' />
+      {% endif %}
+    </div>
+  </div>
+  <h3>Players</h3>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">runs Scored</th>
+      <th scope="col">century</th>
+      <th scope="col">Wickets</th>
+      {% if user.is_authenticated %}
+        {% if user == object.manager %}
+          <th scope='col'> Add/Remove </th>
+        {% endif %}
+      {% endif %}
+
+    </tr>
+    <tbody>
+    {% for player in players %}
+    <tr>
+      <th scope="row">{{forloop.counter}}</th>
+      <td><a href="{% url 'player_detail' player.pk %}">{{player.name}}</a></td>
+      <td>{{player.runs}}</td>
+      <td>{{player.century}}</td>
+      <td>{{player.wickets}}</td>
+      {% if user.is_authenticated %}
+        {% if user == object.manager %}
+          <td>
+            <a class='btn-secondary btn float-left' href="{% url 'player_edit' player.pk %}">Edit</a>
+            <a class='btn btn-danger float-right' href="{% url 'player_delete' player.pk %}">Delete</a>
+          </td>
+        {% endif %}
+      {% endif %}
+    </tr>
+
+    {% endfor %}
+    </tbody>
+</table>
+
+
+</div>
+{% endblock content %}

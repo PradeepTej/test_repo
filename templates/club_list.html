@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Clubs{% endblock title %}
+
+{% block content %}
+
+
+<div class="container">
+<br/>
+<br/>
+<h3 class="display-4 text-center"> All Clubs</h3>
+<br/>
+<br/>
+<div class="row">
+{% for club in clubs %}
+  <div class="col-md-4">
+    <div class="club-list-v">
+    	{%if club.image %}
+      <img class="club-img" style="width:150px; height: 150px;" src="{{club.image.url}}">
+      {% else %}
+       <img class="club-img" src="https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg">
+       {% endif %}
+      <h4 class="club-name"><a href="{% url 'club_detail' club.pk %}">{{club.name}}</a></h4>
+      <h5 class="club-manager">Manager: {{ club.manager}}</h5>
+      <h6 class="club-points"> Points: {{ club.points }}</h5>
+    </div>
+  </div>
+{% endfor %}
+</div>
+  
+
+</div>
+
+{% endblock content %}

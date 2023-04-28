@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Players{% endblock title %}
+{% block base_head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans">
+
+{% endblock %}
+
+{% block content %}
+<div class="container  mt-5">
+<h3 class="display-4 text-center">Top Scorers </h3>
+  <div class="row">
+
+        {% for player in top %}
+          <div class='col-md-6 col-sm-12 col-lg-3 text-center' style="padding-bottom:40px">
+          <div class="card" style="width: 14rem; ">
+
+
+      {% if player.image %}
+          <img src='{{ player.image.url }}' class='img-fluid rounded float-left' />
+         {% else %}
+           <img src='https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg' class='img-fluid rounded float-left' />
+         {% endif %}
+
+
+							
+              <div class="card-body">
+
+  							<p class="font-weight-bold">{{player.name}}</p>
+  							<p class="item-price">Runs: {{player.runs}}</p>
+                <p class="item-price">Century  {{player.century}}</p>
+  							<a href="{% url 'player_detail' player.pk %}" class="btn btn-secondary">View</a>
+
+              </div>
+          </div>
+          </div>
+        {% endfor %}
+</div>
+</div>
+
+
+<div class="container mt-5">
+<h3 class="display-4">All Players</h3>
+
+  {% for player in object_list %}
+
+    <div class="card">
+      <div class="card-header">
+        <span class='text-weight-bold'> {{forloop.counter}}.</span>
+        <a class="text-dark" href="{% url 'player_detail' player.pk %}">
+        <span class="font-weight-bold">{{player.name}} </span>
+        </a>
+        <span class="text-muted">from </span>
+        <a class="text-info" href="{% url 'club_detail' player.club.pk %}">{{ player.club}}</a>
+        <span class="text-info float-right">Runs: {{player.runs}} </span>
+      </div>
+    </div>
+
+      <!--
+      <div class="card-footer text-center text-muted">
+        <a href="{% url 'player_edit' player.pk %}">Edit</a> |
+        <a href="{% url 'player_delete' player.pk %}">Delete</a>
+      </div>
+    </div>
+    -->
+    <br />
+
+  {% endfor %}
+
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+<script>
+
+</script>
+{% endblock %}

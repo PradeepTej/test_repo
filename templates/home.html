@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+
+{% include 'base/slider.html' %}
+<main class="" role="main">
+
+<!-- Slider -->
+
+
+<!-- end_slider -->
+<br/>
+<br/>
+<br/>
+
+<div class=" container-fluid marketing">
+<!-- top teams -->
+
+<div class="row">
+
+
+<div class="col-md-6 mt-5 mb-5">
+  <h3 class='display-4 mb-5'> Top Player  </h3>
+  <div class="row bg-light">
+    {% for top in tops %}
+
+    <div class='col-md-4 player' style="padding-bottom:40px">
+            <div class="card" style="width: 16rem; ">
+
+                {% if top.image %}
+                <img class="card-img-top" src="{{top.image.url}}" alt="">
+                {% else %}
+                <img class="card-img-top" src="https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg" alt="">
+                 {% endif %}
+
+                <div class="card-body">
+
+                  <p class="font-weight-bold">{{top.name}}</p>
+                  <p class="item-price">Runs Scored: {{top.runs}}</p>
+                  <a href="{% url 'player_detail' top.pk %}" class="btn btn-secondary">View Player</a>
+
+                </div>
+            </div>
+            </div>
+
+
+    
+    {% endfor %}
+  </div>
+</div>
+
+
+
+    <div class="col-md-6 mt-5 mb-5">
+      <h3 class='display-4 mb-5'> Top Club  </h3>
+    <div class="row">
+
+          {% for club in top_clubs %}
+            <div class='col-md-4' style="padding-bottom:40px">
+            <div class="card" style="width: 16rem; ">
+
+                 {% if club.image %}
+                <img class="card-img-top" src="{{club.image.url}}" alt="">
+                {% else %}
+                <img class="card-img-top" src="https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg" alt="">
+                   {% endif %}
+
+                <div class="card-body">
+
+                  <p class="font-weight-bold">{{club.name}}</p>
+                  <p class="item-price">points: {{club.points}}</p>
+                  <a href="{% url 'club_detail' club.pk %}" class="btn btn-secondary">View club</a>
+
+                </div>
+            </div>
+            </div>
+          {% endfor %}
+  </div>
+  </div>
+    </div>
+  </div>
+
+  <br/>
+  <br/>
+  <br/>
+
+  <section class="container mb-5">
+    
+    <h3 class="display-4 mb-5">Always Stay Updated <span class="text-muted"></span></h3>
+      <p class="lead">Match Result</p>
+      <table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Team 1</th>
+    <th scope="col">Team 2</th>
+    <th scope="col">Date</th>
+    <th scope="col">Score</th>
+  </tr>
+
+  <tbody>
+  {% for match in matches %}
+
+  <tr>
+    <th scope="row">{{forloop.counter}}</th>
+    <td>{{match.team_1}}</td>
+    <td>{{match.team_2}}</td>
+    <td>{{match.timestamp}}</td>
+    <td>{{match.total_runs}}-{{match.wicket}}</td>
+
+  </tr>
+
+
+  {% endfor %}
+  </tbody>
+</table>
+      <a class="btn btn-secondary" href="{% url 'match_new' %}" role="button">Add Match </a>
+  </section>
+
+<div class="container">
+
+<h3 class='display-4 mb-5'>Runrate Calculater  </h3>
+<div class="text-center" id="result"></div>
+     <div class="input-field ">
+       <label for="num1">Total Runs</label>
+       <input class="form-control" type="number" id="num1">
+     </div>
+     <div class="input-field ">
+       <label for="num2">Total Overs</label>
+       <input class="form-control" type="number" id="num2">
+     </div>
+     <button class="btn btn-secondary mt-3" onclick="calculate()">Calculate Percentage</button>
+     
+</div>
+
+</main>
+
+
+
+<script>
+  
+function calculate() {
+ var num1 = document.getElementById("num1").value;
+ var num2 = document.getElementById("num2").value;
+ var result = document.getElementById("result");
+ if (num1 > 0) {
+   var percentage = num1 / num2 ;
+   result.innerHTML = "Current Runrate is : " + percentage.toFixed(2) + "%";
+ } else {
+   result.innerHTML = "Number 1 should be greater than 0";
+ }
+}
+
+
+</script>
+
+
+
+<!-- <div class="jumbotron">
+  <h1 class="display-4"> Explore all Clubs and Managers</h1>
+  <p class="lead">
+    <a class="btn btn-info btn-md" href="{% url 'club_list' %}" role="button">View All Clubs</a>
+  </p>
+</div> -->
+
+{% endblock content %}

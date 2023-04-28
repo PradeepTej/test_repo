@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+<div class="container mt-5">
+  <p> Back to <a class="text-info" href="{% url 'player_list' %}">Players Page</a>.</p>
+<div class='row'>
+  <div class='col-6 col-md-6'>
+    <h2>{{object.name}}</h2>
+    <p>Club: <a href="{% url 'club_detail' player.club.pk %}">{{ object.club }}</a></p>
+
+    <p>Height: {{ object.height }}ft</p>
+    <p>runs Scored: {{object.runs}}</p>
+    <p>century: {{object.century}}</p>
+    <p>Wickets: {{object.wickets}}</p>
+    </div>
+    <div class='col-4'>
+    {% if object.image %}
+        <p>
+          {% if object.image % }
+          <img src='{{ object.image.url }}' class='img-fluid rounded float-left' />
+         {% else %}
+           <img src='https://png.pngtree.com/png-vector/20191009/ourmid/pngtree-user-icon-png-image_1796659.jpg' class='img-fluid rounded float-left' />
+         {% endif %}
+
+        </p>
+    </div>
+  </div>
+
+</div>
+
+<!-- <p><a href="{% url 'player_edit' player.pk %}">Edit</a>
+</p> -->
+
+{% endblock content %}
