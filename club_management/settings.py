@@ -87,16 +87,16 @@ DATABASES = {
     }
 }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django',
-        'USER': 'admin',
-        'PASSWORD': 'a4ZUHj6GfAtXUujL',
-        'HOST':'django-app.civwddw9gdry.eu-north-1.rds.amazonaws.com',
-        'PORT':'3306',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'django',
+#         'USER': 'admin',
+#         'PASSWORD': 'a4ZUHj6GfAtXUujL',
+#         'HOST':'django-app.civwddw9gdry.eu-north-1.rds.amazonaws.com',
+#         'PORT':'3306',
+#     }
+# }
 
 
 AUTH_USER_MODEL = 'users.CustomUser'
